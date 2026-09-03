@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paul Kodaolu — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12151B;
+    --panel:#1A1E27;
+    --panel-2:#21262F;
+    --paper:#F4EFE6;
+    --text:#ECE7DA;
+    --muted:#939AAC;
+    --ember:#E2A33B;
+    --ember-dim:#C98A2A;
+    --teal:#4FA69D;
+    --border:rgba(236,231,218,0.12);
+    --maxw:760px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--ember);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  .prose{
+    max-width:var(--maxw);
+  }
+
+  p{ color:var(--muted); margin:0 0 16px 0; }
+  p:last-child{ margin-bottom:0; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(18,21,27,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:68px;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--text);
+    text-decoration:none;
+  }
+  .logo span{ color:var(--ember); }
+  .navlinks{
+    display:flex;
+    gap:32px;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .navlinks a{
+    text-decoration:none;
+    color:var(--muted);
+    font-size:0.95rem;
+    transition:color 0.15s ease;
+  }
+  .navlinks a:hover{ color:var(--text); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:120px 0 96px;
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--teal);
+    margin-bottom:20px;
+    opacity:0;
+    animation:rise 0.7s ease forwards;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.1rem);
+    line-height:1.06;
+    color:var(--text);
+    max-width:820px;
+    opacity:0;
+    animation:rise 0.7s ease 0.1s forwards;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--ember);
+    font-weight:500;
+  }
+  .hero .sub{
+    margin-top:26px;
+    font-size:1.08rem;
+    max-width:560px;
+    opacity:0;
+    animation:rise 0.7s ease 0.2s forwards;
+  }
+  .hero .ctas{
+    margin-top:36px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation:rise 0.7s ease 0.3s forwards;
+  }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 24px;
+    border-radius:6px;
+    font-size:0.95rem;
+    font-weight:500;
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-primary{
+    background:var(--ember);
+    color:#181205;
+  }
+  .btn-primary:hover{ background:var(--ember-dim); transform:translateY(-1px); }
+  .btn-ghost{
+    border-color:var(--border);
+    color:var(--text);
+    background:transparent;
+  }
+  .btn-ghost:hover{ border-color:var(--text); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:88px 0; border-top:1px solid var(--border); }
+  .section-head{ margin-bottom:48px; }
+  .section-head h2{
+    font-size:clamp(1.7rem, 3vw, 2.2rem);
+    color:var(--text);
+  }
+  .section-head p{ margin-top:14px; max-width:var(--maxw); }
+
+  /* ---------- FEATURED PROJECT ---------- */
+  .project{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:start;
+  }
+  @media (max-width:860px){
+    .project{ grid-template-columns:1fr; }
+  }
+
+  .project-title{
+    font-size:1.9rem;
+    color:var(--text);
+    margin-bottom:14px;
+  }
+  .project-desc{ margin-bottom:24px; }
+
+  .feature-list{
+    list-style:none;
+    margin:0 0 28px 0;
+    padding:0;
+    display:grid;
+    gap:12px;
+  }
+  .feature-list li{
+    padding-left:20px;
+    position:relative;
+    font-size:0.96rem;
+    color:var(--text);
+  }
+  .feature-list li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:9px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--ember);
+  }
+
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:28px;
+  }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    padding:6px 11px;
+    border-radius:5px;
+    border:1px solid var(--border);
+    color:var(--muted);
+  }
+
+  .project-links{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  /* mock browser panel */
+  .mock{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .mock-bar{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:12px 14px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--border);
+  }
+  .mock-dot{ width:9px; height:9px; border-radius:50%; background:rgba(236,231,218,0.18); }
+  .mock-url{
+    margin-left:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--muted);
+    background:var(--ink);
+    padding:4px 10px;
+    border-radius:4px;
+    flex:1;
+  }
+  .mock-body{ padding:22px; }
+  .mock-brand{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    color:var(--ember);
+    font-size:1.05rem;
+    margin-bottom:18px;
+  }
+  .mock-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:13px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .mock-row:last-child{ border-bottom:none; }
+  .mock-item-name{ font-size:0.88rem; color:var(--text); }
+  .mock-item-desc{ font-size:0.76rem; color:var(--muted); margin-top:3px; }
+  .mock-price{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    color:var(--ember);
+  }
+  .mock-swatch{
+    width:44px; height:44px;
+    border-radius:6px;
+    margin-right:12px;
+    flex-shrink:0;
+    background:linear-gradient(135deg, var(--ember), #7A4B1E);
+  }
+  .mock-item-row{ display:flex; align-items:center; }
+
+  /* ---------- STACK ---------- */
+  .stack-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:40px;
+  }
+  @media (max-width:700px){
+    .stack-grid{ grid-template-columns:1fr; gap:32px; }
+  }
+  .stack-col h3{
+    font-size:1.02rem;
+    color:var(--text);
+    margin-bottom:14px;
+    font-weight:600;
+  }
+  .stack-col ul{
+    list-style:none;
+    margin:0; padding:0;
+    display:grid;
+    gap:9px;
+  }
+  .stack-col li{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.86rem;
+    color:var(--muted);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:36px;
+    align-items:start;
+  }
+  @media (max-width:700px){
+    .about-grid{ grid-template-columns:1fr; }
+  }
+  .avatar{
+    width:88px; height:88px;
+    border-radius:10px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    font-weight:700;
+    color:var(--ember);
+    overflow:hidden;
+  }
+  .avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:28px;
+  }
+  .contact-links a{
+    text-decoration:none;
+    font-size:1.05rem;
+    color:var(--text);
+    display:inline-flex;
+    align-items:baseline;
+    gap:10px;
+    border-bottom:1px solid transparent;
+    width:fit-content;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .contact-links a:hover{
+    color:var(--ember);
+    border-color:var(--ember);
+  }
+  .contact-links .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    color:var(--muted);
+    min-width:64px;
+  }
+
+  footer{
+    padding:36px 0;
+    border-top:1px solid var(--border);
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  footer p{ font-size:0.85rem; margin:0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">Paul<span>.</span></a>
+    <ul class="navlinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-eyebrow">Full-stack developer</div>
+    <h1>Building software, <em>end to end.</em></h1>
+    <p class="sub">I'm Paul — I design the schema, write the backend, and build the interface that sits on top of it. PHP on the server, whatever the problem needs everywhere else.</p>
+    <div class="ctas">
+      <a href="#work" class="btn btn-primary">See the work</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Paul's Bite</h2>
+      <p>A food ordering platform I built from the database up — the kind of project that touches every layer: schema design, server logic, and the interface a customer actually orders from.</p>
+    </div>
+
+    <div class="project">
+      <div>
+        <p class="project-desc">Customers browse a categorized menu, build a cart, and check out without needing an account — the kitchen gets notified by email the moment an order lands, and every order can be tracked with a unique code. Behind the scenes, an admin dashboard gives restaurant staff control over the whole operation.</p>
+
+        <ul class="feature-list">
+          <li>Guest checkout with order tracking by phone number or code</li>
+          <li>Real-time kitchen email notifications on new orders</li>
+          <li>Admin dashboard — order management, menu &amp; category CRUD, discount codes, revenue charts</li>
+          <li>Customer reviews on menu items</li>
+        </ul>
+
+        <div class="tags">
+          <span class="tag">PHP</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML/CSS</span>
+        </div>
+
+        <div class="project-links">
+          <a href="https://drive.google.com/file/d/1el7XfUp4d98Eelm42TzJU0DxB8eJq60R/view?usp=sharing" class="btn btn-primary" target="_blank" rel="noopener">Watch the demo</a>
+          <a href="https://github.com/paul20-beep/food-ordering" class="btn btn-ghost" target="_blank" rel="noopener">View source</a>
+        </div>
+      </div>
+
+      <div class="mock" aria-hidden="true">
+        <div class="mock-bar">
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-url">paulsbite.app/menu</div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-brand">Paul's Bite</div>
+
+          <div class="mock-row">
+            <div class="mock-item-row">
+              <div class="mock-swatch"></div>
+              <div>
+                <div class="mock-item-name">Jollof Rice</div>
+                <div class="mock-item-desc">Smoky party-style, side of coleslaw</div>
+              </div>
+            </div>
+            <div class="mock-price">₦2,500</div>
+          </div>
+
+          <div class="mock-row">
+            <div class="mock-item-row">
+              <div class="mock-swatch"></div>
+              <div>
+                <div class="mock-item-name">Native Rice (Ofada)</div>
+                <div class="mock-item-desc">Ofada-style, palm oil sauce</div>
+              </div>
+            </div>
+            <div class="mock-price">₦3,000</div>
+          </div>
+
+          <div class="mock-row">
+            <div class="mock-item-row">
+              <div class="mock-swatch"></div>
+              <div>
+                <div class="mock-item-name">Fried Rice</div>
+                <div class="mock-item-desc">Sweetcorn, carrots, vegetables</div>
+              </div>
+            </div>
+            <div class="mock-price">₦2,500</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What I build with</h2>
+      <p>The tools that make it into most projects, whichever direction the work goes.</p>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-col">
+        <h3>Frontend</h3>
+        <ul>
+          <li>HTML / CSS</li>
+          <li>JavaScript</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h3>Backend</h3>
+        <ul>
+          <li>PHP</li>
+          <li>MySQL</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h3>Tools</h3>
+        <ul>
+          <li>Git &amp; GitHub</li>
+          <li>VS Code</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="avatar"><img src="photo.jpg" alt="Paul Kodaolu"></div>
+      <div class="prose">
+        <h2 style="margin-bottom:16px; font-size:1.7rem;">About</h2>
+        <p>I'm a full-stack developer who likes owning a project from the database schema through to the last pixel of the interface. Most of my backend work runs on PHP, and I'm comfortable picking up whatever the frontend calls for. Paul's Bite is the first project I've taken all the way from an empty repo to a working demo — more are on the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Get in touch</h2>
+      <p>Open to opportunities and always happy to talk about a project.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:Kodaolupaul@gmail.com"><span class="label">Email</span> Kodaolupaul@gmail.com</a>
+      <a href="https://github.com/paul20-beep" target="_blank" rel="noopener"><span class="label">GitHub</span> github.com/paul20-beep</a>
+      <a href="https://wa.me/2349127123471" target="_blank" rel="noopener"><span class="label">WhatsApp</span> +234 912 712 3471</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Paul Kodaolu — Full-stack developer</p>
+    <p>© 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
